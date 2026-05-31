@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Wedding Invitation – Varin & Ringga</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- EB Garamond: angka & huruf seragam ukurannya, menggantikan Cormorant Garamond -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Scheherazade+New:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- DESKTOP BLOCKER -->
+    <div id="desktop-blocker">
+      <div class="blocker-inner">
+        <div class="blocker-icon">💌</div>
+        <h2>Undangan Pernikahan</h2>
+        <p>
+          Halaman ini hanya dapat diakses melalui
+          <strong>perangkat HP / smartphone</strong>.
+        </p>
+        <p class="sub">
+          Silakan buka tautan ini di HP Anda untuk pengalaman terbaik.
+        </p>
+      </div>
+    </div>
+
+    <!-- MUSIC -->
+    <audio id="bg-music" loop>
+      <source src="asset/music.mpeg" type="audio/mpeg" />
+    </audio>
+
+    <!-- ============================================================
+       COVER PAGE
+       Urutan muncul: foto → bg asset → bunga → teks atas → teks bawah
+       Layout: nama mempelai di atas, tengah kosong (wajah), nama tamu + button di bawah
+  ============================================================ -->
+    <section id="cover">
+      <!-- Layer 1: Foto mempelai – muncul pertama -->
+      <div class="cover-photo" id="cover-photo">
+        <img src="foto/fotoCover.jpeg" alt="Foto Mempelai" />
+      </div>
+
+      <!-- Layer 2: Background asset overlay -->
+      <div class="cover-bg" id="cover-bg">
+        <img src="asset/cover.png" alt="Cover Background" />
+      </div>
+
+      <!-- Layer 4a: Bunga atas – full lebar -->
+      <div class="flower-top" id="flower-top-cover">
+        <img src="asset/bungaAtas.png" alt="" />
+      </div>
+
+      <!-- Layer 4b: Bunga sudut bawah kanan -->
+      <div class="flower-bottom-right" id="flower-bottom-cover">
+        <img src="asset/bungaSudutBawah.png" alt="" />
+      </div>
+
+      <!-- Layer 3a: Teks atas – nama mempelai -->
+      <div class="cover-top-text" id="cover-top-text">
+        <p class="cover-label">THE WEDDING OF</p>
+        <h1 class="cover-names">Varin &amp; Ringga</h1>
+        <p class="cover-date">3 Juli 2026</p>
+      </div>
+
+      <!-- Layer 3b: Teks bawah – nama tamu + tombol -->
+      <div class="cover-bottom-text" id="cover-bottom-text">
+        <div class="cover-recipient">
+          <p class="recipient-to">Kepada Yth</p>
+          <p class="recipient-sub">Bapak/Ibu/Saudara/i</p>
+          <p class="recipient-name">Ini Nama Tamu Undangan</p>
+        </div>
+        <button id="btn-open" onclick="openInvitation()">
+          <span>Buka Undangan</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       INVITATION CONTENT
+  ============================================================ -->
+    <div id="invitation" class="hidden">
+      <!-- Global Background Fixed -->
+      <div id="global-bg"><img src="foto/background.png" alt="" /></div>
+
+      <!-- Music Toggle -->
+      <button id="music-btn" onclick="toggleMusic()" title="Toggle Music">
+        <div class="cassette-icon">
+          <svg
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="3"
+              y="8"
+              width="34"
+              height="24"
+              rx="3"
+              stroke="white"
+              stroke-width="2"
+            />
+            <circle cx="13" cy="20" r="4" stroke="white" stroke-width="1.5" />
+            <circle cx="27" cy="20" r="4" stroke="white" stroke-width="1.5" />
+            <circle cx="13" cy="20" r="1.5" fill="white" />
+            <circle cx="27" cy="20" r="1.5" fill="white" />
+            <line
+              x1="17"
+              y1="20"
+              x2="23"
+              y2="20"
+              stroke="white"
+              stroke-width="1.5"
+            />
+            <rect
+              x="16"
+              y="14"
+              width="8"
+              height="4"
+              rx="1"
+              stroke="white"
+              stroke-width="1.5"
+            />
+          </svg>
+        </div>
+      </button>
+
+      <!-- ---- Section: Opening (Page 1) ---- -->
+      <!-- Layout: nama mempelai di atas, foto di tengah, kutipan di bawah -->
+      <section id="section-opening" class="page page-opening">
+        <div class="opening-photo">
+          <img src="foto/foto1.jpeg" alt="Foto Mempelai" />
+        </div>
+        <div class="opening-overlay"></div>
+
+        <!-- Bunga atas -->
+        <div class="flower-top-opening">
+          <img src="asset/bungaAtas.png" alt="" />
+        </div>
+
+        <!-- Teks atas: nama mempelai -->
+        <div class="opening-top-content">
+          <p class="opening-label">Wedding Invitation</p>
+          <h1 class="opening-names">Varin &amp; Ringga</h1>
+          <p class="opening-date">Jumat, 3 Juli 2026</p>
+        </div>
+
+        <!-- Teks bawah: kutipan -->
+        <div class="opening-bottom-content">
+          <div class="opening-divider"></div>
+          <p class="opening-quote">
+            "Love is the gentle architecture of a shared world.<br />
+            Built with trust and adorned with affection"
+          </p>
+        </div>
+      </section>
+
+      <!-- ---- Opening Page 2: Ayat & Doa ---- -->
+      <section id="section-opening2" class="page page-opening2">
+        <!-- Layer 1: Foto -->
+        <div class="op2-photo">
+          <img src="foto/foto2.jpeg" alt="Foto Mempelai" />
+        </div>
+
+        <!-- Layer 2: Overlay putih 30% -->
+        <div class="op2-overlay"></div>
+
+        <!-- Layer 3: Konten teks -->
+        <div class="op2-content">
+          <!-- Bismillah -->
+          <div class="op2-block" data-delay="0">
+            <p class="op2-arabic bismillah">
+              بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+            </p>
+          </div>
+
+          <!-- Doa nikah Arabic -->
+          <div class="op2-block" data-delay="1">
+            <p class="op2-arabic doa-arabic">
+              اَللّٰهُمَّ بَارِكْ لَهُمَا وَبَارِكْ عَلَيْهِمَا وَاجْمَعْ
+              بَيْنَهُمَا فِي الْخَيْرِ وَاغْنِهِمَا بِحَلَالِكَ عَنْ حَرَامِكَ
+              وَهَبْ لَهُمَا الذُّرِّيَّةَ الصَّالِحَةَ
+            </p>
+          </div>
+
+          <!-- Garis pemisah -->
+          <div class="op2-block" data-delay="2">
+            <div class="op2-divider"></div>
+          </div>
+
+          <!-- Ayat Al-Qur'an (QS. Ar-Rum: 21) -->
+          <div class="op2-block" data-delay="3">
+            <p class="op2-quran-text">
+              "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan
+              untukmu pasangan hidup dari jenismu sendiri, supaya kamu cenderung
+              dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa
+              kasih dan sayang"
+            </p>
+            <p class="op2-quran-source">— QS. Ar-Rum: 21</p>
+          </div>
+
+          <!-- Teks pengantar -->
+          <div class="op2-block" data-delay="4">
+            <div class="op2-divider-thin"></div>
+            <p class="op2-intro">
+              Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud
+              menyelenggarakan pernikahan putra-putri kami
+            </p>
+          </div>
+        </div>
+        <!-- end op2-content -->
+      </section>
+      <!-- ---- End Opening Page 2 ---- -->
+
+      <!-- ---- Section: Couple ---- -->
+      <section id="section-couple" class="page page-couple">
+        <!-- Overlay hitam 50% seluruh section couple -->
+        <div class="couple-overlay-full"></div>
+
+        <!-- ===== LAYAR 1: MEMPELAI WANITA ===== -->
+        <div class="couple-screen couple-screen-bride">
+          <!-- Teks: rata kanan, di atas -->
+          <div
+            class="couple-text-block couple-text-top-right reveal-2way enter-bottom"
+          >
+            <p class="couple-role">Mempelai Wanita</p>
+            <h2 class="couple-name">Novarina Rachmi Arizah, S.Pd</h2>
+            <p class="couple-parents">
+              Putri pertama dari<br />
+              Bapak Abdul Rahman, S.Pd dan Ibu<br />
+              Umi Rubaiyah, S.Pd
+            </p>
+            <a
+              class="couple-ig-btn"
+              href="https://instagram.com/"
+              target="_blank"
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle
+                  cx="17.5"
+                  cy="6.5"
+                  r="1"
+                  fill="currentColor"
+                  stroke="none"
+                />
+              </svg>
+              Instagram
+            </a>
+          </div>
+
+          <!-- Foto wanita – di tengah, melengkung -->
+          <div
+            class="couple-card reveal-2way enter-bottom"
+            style="transition-delay: 0.12s"
+          >
+            <img src="foto/foto4.png" alt="Mempelai Wanita" />
+          </div>
+        </div>
+
+        <!-- Simbol & di antara dua layar -->
+        <div class="couple-ampersand">&amp;</div>
+
+        <!-- ===== LAYAR 2: MEMPELAI PRIA ===== -->
+        <div class="couple-screen couple-screen-groom">
+          <!-- Foto pria – di tengah atas, melengkung -->
+          <div class="couple-card reveal-2way enter-bottom">
+            <img src="foto/foto5.png" alt="Mempelai Pria" />
+          </div>
+
+          <!-- Teks: rata kiri, di bawah -->
+          <div
+            class="couple-text-block couple-text-bottom-left reveal-2way enter-bottom"
+            style="transition-delay: 0.12s"
+          >
+            <p class="couple-role">Mempelai Pria</p>
+            <h2 class="couple-name">Bella Ringga Sandita, S.Pd</h2>
+            <p class="couple-parents">
+              Putra pertama dari<br />
+              Bapak Hasan Holis dan Ibu Hosniyah
+            </p>
+            <a
+              class="couple-ig-btn"
+              href="https://instagram.com/"
+              target="_blank"
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle
+                  cx="17.5"
+                  cy="6.5"
+                  r="1"
+                  fill="currentColor"
+                  stroke="none"
+                />
+              </svg>
+              Instagram
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Section: Event ---- -->
+      <section id="section-event" class="page page-event">
+        <!-- BAGIAN 1: COUNTDOWN (setengah layar) -->
+        <div class="event-countdown">
+          <!-- Foto background -->
+          <div class="event-cd-photo">
+            <img src="foto/foto6.png" alt="" />
+          </div>
+          <!-- Overlay hitam 50% -->
+          <div class="event-cd-overlay"></div>
+          <!-- Konten countdown -->
+          <div class="event-cd-content reveal-2way enter-bottom">
+            <p class="event-cd-label">COUNTDOWN</p>
+            <p class="event-cd-date">Jumat, 3 Juli 2026</p>
+            <div class="event-cd-boxes">
+              <div class="cd-box">
+                <span id="cd-hari">00</span>
+                <p>Hari</p>
+              </div>
+              <div class="cd-box">
+                <span id="cd-jam">00</span>
+                <p>Jam</p>
+              </div>
+              <div class="cd-box">
+                <span id="cd-menit">00</span>
+                <p>Menit</p>
+              </div>
+              <div class="cd-box">
+                <span id="cd-detik">00</span>
+                <p>Detik</p>
+              </div>
+            </div>
+            <button class="event-cd-btn" onclick="simpanKalender()">
+              Simpan di Kalender
+            </button>
+          </div>
+        </div>
+
+        <!-- BAGIAN 2: RINCIAN ACARA (2 layar) -->
+        <div class="event-detail">
+          <!-- Kapsul hitam 70% di tengah -->
+          <div class="event-capsule reveal-2way enter-bottom">
+            <!-- Akad Nikah (tanpa tempat, alamat, dan button lokasi) -->
+            <div class="event-acara">
+              <div class="event-acara-content">
+                <h3 class="acara-title">Akad Nikah</h3>
+                <p class="acara-bulan">JULI</p>
+                <div class="acara-tgl-row">
+                  <span class="acara-hari">JUMAT</span>
+                  <span class="acara-tgl">3</span>
+                  <span class="acara-tahun">2026</span>
+                </div>
+                <p class="acara-jam">08.00 WIB</p>
+              </div>
+            </div>
+
+            <div class="event-acara-sep"></div>
+
+            <!-- Resepsi (dengan tempat, alamat, button, dan preview maps) -->
+            <div class="event-acara event-acara-resepsi">
+              <div class="event-acara-content">
+                <h3 class="acara-title">Resepsi</h3>
+                <p class="acara-bulan">JULI</p>
+                <div class="acara-tgl-row">
+                  <span class="acara-hari">JUMAT</span>
+                  <span class="acara-tgl">3</span>
+                  <span class="acara-tahun">2026</span>
+                </div>
+                <p class="acara-jam">09.00 WIB</p>
+                <div class="acara-divider"></div>
+                <p class="acara-tempat">nama tempat</p>
+                <p class="acara-alamat">Jl. apa? 32</p>
+                <a
+                  class="acara-maps-btn"
+                  href="https://maps.google.com/?q=-7.703,114.003"
+                  target="_blank"
+                  >Buka di Google Maps</a
+                >
+              </div>
+              <!-- Preview Maps - setengah kapsul bawah -->
+              <div class="acara-maps-preview">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7899.5!2d114.003!3d-7.703!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                  width="100%"
+                  height="100%"
+                  style="border: 0"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Section: Moment – Stories ---- -->
+      <section id="section-moment" class="page page-moment">
+        <!-- ===== SUB-SECTION: STORIES ===== -->
+        <div class="stories-section">
+          <!-- Overlay hitam 50% -->
+          <div class="stories-overlay"></div>
+
+          <!-- Konten -->
+          <div class="stories-content">
+            <!-- Judul -->
+            <div class="stories-header reveal-2way enter-bottom">
+              <p class="stories-label">Our Journey</p>
+              <h2 class="stories-title">Stories</h2>
+              <div class="stories-title-line"></div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="stories-timeline">
+              <!-- Item 1 -->
+              <div class="tl-item" data-tl="0">
+                <div class="tl-dot">
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 3.5C8.5 3.5 7.5 4.6 7.5 6c0 2 2.5 5 2.5 5s2.5-3 2.5-5c0-1.4-1-2.5-2.5-2.5z"
+                      fill="white"
+                    />
+                    <circle cx="10" cy="6" r="1.2" fill="#7aa7c0" />
+                  </svg>
+                </div>
+                <div class="tl-bubble">
+                  <!-- <p class="tl-date">Februari 2021</p> -->
+                  <h3 class="tl-heading">Awal Kenalan</h3>
+                  <p class="tl-text">
+                    Berawal dari lorong - lorong dan bangku perkuliahan yang
+                    dipenuhi tawa dan lembaran tugas, takdir seakan
+                    mempertemukan dua insan dalam satu irama cerita. Dari
+                    sekadar saling menyapa di ruang kelas, kami mulai
+                    menghabiskan waktu bersama untuk belajar, berdiskusi, hingga
+                    bertukar mimpi tentang masa depan.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="tl-item" data-tl="1">
+                <div class="tl-dot">
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 3.5C8.5 3.5 7.5 4.6 7.5 6c0 2 2.5 5 2.5 5s2.5-3 2.5-5c0-1.4-1-2.5-2.5-2.5z"
+                      fill="white"
+                    />
+                    <circle cx="10" cy="6" r="1.2" fill="#7aa7c0" />
+                  </svg>
+                </div>
+                <div class="tl-bubble">
+                  <!-- <p class="tl-date">Juni 2021</p> -->
+                  <h3 class="tl-heading">Mulai Dekat</h3>
+                  <p class="tl-text">
+                    Hari demi hari berlalu bagaikan aliran sungai yang tenang,
+                    membawa kami semakin dekat tanpa banyak disadari. Dalam
+                    setiap percakapan sederhana, ada kenyamanan yang tumbuh
+                    perlahan; dalam setiap candaan, ada rasa yang diam-diam
+                    bersemi. Ibarat kata "cinta diam - diam" seperti peribahasa
+                    “benih yang ditanam dengan ketulusan akan tumbuh menjadi
+                    pohon yang rindang,” persahabatan itu pun menjelma menjadi
+                    tempat berteduh paling hangat bagi hati kami.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="tl-item" data-tl="2">
+                <div class="tl-dot">
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 3.5C8.5 3.5 7.5 4.6 7.5 6c0 2 2.5 5 2.5 5s2.5-3 2.5-5c0-1.4-1-2.5-2.5-2.5z"
+                      fill="white"
+                    />
+                    <circle cx="10" cy="6" r="1.2" fill="#7aa7c0" />
+                  </svg>
+                </div>
+                <div class="tl-bubble">
+                  <!-- <p class="tl-date">Oktober 2021</p> -->
+                  <h3 class="tl-heading">Tumbuh Bersama</h3>
+                  <p class="tl-text">
+                    Di tengah perjuangan mengejar gelar, kami belajar bahwa
+                    hidup bukan hanya tentang mencapai tujuan, tetapi juga
+                    tentang menemukan seseorang yang bersedia berjalan
+                    beriringan melewati segala musim kehidupan. Saat lelah
+                    menghampiri, kami saling menguatkan; saat salah satu hampir
+                    menyerah, yang lain hadir menjadi pelita di tengah gelapnya
+                    keraguan. Kehadiran satu sama lain ibarat kopi dan gula,
+                    berbeda namun saling melengkapi.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="tl-item" data-tl="3">
+                <div class="tl-dot">
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 3.5C8.5 3.5 7.5 4.6 7.5 6c0 2 2.5 5 2.5 5s2.5-3 2.5-5c0-1.4-1-2.5-2.5-2.5z"
+                      fill="white"
+                    />
+                    <circle cx="10" cy="6" r="1.2" fill="#7aa7c0" />
+                  </svg>
+                </div>
+                <div class="tl-bubble">
+                  <!-- <p class="tl-date">Maret 2025</p> -->
+                  <h3 class="tl-heading">Proposal</h3>
+                  <p class="tl-text">
+                    Dari kebersamaan itulah kami menyadari bahwa rasa ini bukan
+                    lagi sekadar persahabatan biasa. Ada doa yang diam-diam
+                    diselipkan dalam setiap langkah, ada nama yang tanpa sadar
+                    selalu disebut dalam harapan. Benarlah kata pepatah, “dari
+                    mata turun ke hati,” sebab kedekatan yang awalnya sederhana
+                    perlahan berubah menjadi kasih yang begitu berarti. Hingga
+                    seiring berjalannya waktu hingga akhirnya kami berhasil
+                    meraih gelar yang sama, menutup satu bab perjalanan dan
+                    membuka lembaran baru kehidupan. Namun siapa sangka, akhir
+                    dari masa perkuliahan justru menjadi awal dari kisah cinta
+                    yang sesungguhnya. Setelah melewati suka dan duka bersama,
+                    kami percaya bahwa cinta bukan hanya tentang menemukan
+                    seseorang yang sempurna, melainkan tentang menerima
+                    ketidaksempurnaan dengan hati yang lapang.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Item 5 -->
+              <div class="tl-item" data-tl="4">
+                <div class="tl-dot">
+                  <svg
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 3.5C8.5 3.5 7.5 4.6 7.5 6c0 2 2.5 5 2.5 5s2.5-3 2.5-5c0-1.4-1-2.5-2.5-2.5z"
+                      fill="white"
+                    />
+                    <circle cx="10" cy="6" r="1.2" fill="#7aa7c0" />
+                  </svg>
+                </div>
+                <div class="tl-bubble">
+                  <!-- <p class="tl-date">3 Juli 2026</p> -->
+                  <h3 class="tl-heading">Menuju Pernikahan</h3>
+                  <p class="tl-text">
+                    Layaknya dua bintang yang dipertemukan langit dalam garis
+                    takdir yang sama, langkah kami kini menuju tujuan yang lebih
+                    indah: sebuah ikatan janji suci. Dengan penuh syukur, kami
+                    ingin melangkah bersama dalam bahtera rumah tangga,
+                    mengarungi samudra kehidupan bergandengan tangan, sebab kami
+                    percaya “berat sama dipikul, ringan sama dijinjing.” Dan
+                    semoga kisah ini menjadi awal dari cinta yang tak hanya
+                    tumbuh di dunia, tetapi juga mekar hingga ke surga.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- end stories-timeline -->
+          </div>
+          <!-- end stories-content -->
+        </div>
+        <!-- end stories-section -->
+
+        <!-- ===== SUB-SECTION: GALLERY ===== -->
+        <div class="gallery-section">
+          <!-- Layer 1: Foto background -->
+          <div class="gallery-bg">
+            <img src="foto/foto7.png" alt="" />
+          </div>
+
+          <!-- Layer 2: Overlay hitam 50% -->
+          <div class="gallery-overlay"></div>
+
+          <!-- Layer 3: Konten -->
+          <div class="gallery-content">
+            <!-- Judul -->
+            <div class="gallery-header reveal-2way enter-bottom">
+              <p class="gallery-label">Our Moments</p>
+              <h2 class="gallery-title">Gallery</h2>
+              <div class="gallery-title-line"></div>
+            </div>
+
+            <!-- Grid foto -->
+            <div class="gallery-grid">
+              <!-- Baris 1: 1 foto lanscape-->
+              <div
+                class="gallery-item"
+                data-gi="0"
+                style="grid-column: span 2; aspect-ratio: 4/2"
+              >
+                <img src="foto/galeri1.png" alt="Galeri 1" />
+              </div>
+
+              <!-- Baris 2: 3 foto, 1 potrait dan 2 kotak -->
+              <div
+                class="gallery-item"
+                data-gi="1"
+                style="grid-row: span 2; aspect-ratio: 3/6.2"
+              >
+                <img src="foto/galeri2.png" alt="Galeri 2" />
+              </div>
+              <div
+                class="gallery-item"
+                data-gi="2"
+                style="grid-column: span 1; aspect-ratio: 1/1"
+              >
+                <img src="foto/galeri3.png" alt="Galeri 3" />
+              </div>
+              <div
+                class="gallery-item"
+                data-gi="3"
+                style="grid-column: span 1; aspect-ratio: 1/1"
+              >
+                <img src="foto/galeri4.png" alt="Galeri 4" />
+              </div>
+
+              <!-- Baris 3: 1 foto lanscape-->
+              <div
+                class="gallery-item"
+                data-gi="4"
+                style="grid-column: span 2; aspect-ratio: 4/2"
+              >
+                <img src="foto/galeri5.png" alt="Galeri 5" />
+              </div>
+
+              <!-- Baris 4: 2 foto, 1 kotak dan 1 potrait-->
+              <div
+                class="gallery-item"
+                data-gi="5"
+                style="grid-column: span 1; aspect-ratio: 1/1"
+              >
+                <img src="foto/galeri6.png" alt="Galeri 6" />
+              </div>
+              <div
+                class="gallery-item"
+                data-gi="6"
+                style="grid-row: span 2; aspect-ratio: 3/6.2"
+              >
+                <img src="foto/galeri7.png" alt="Galeri 7" />
+              </div>
+
+              <!-- Baris 5: 2 foto, 1 potrait dan 1 kotak-->
+              <div
+                class="gallery-item gi-half"
+                data-gi="7"
+                style="grid-row: span 2; aspect-ratio: 3/6.2"
+              >
+                <img src="foto/galeri8.png" alt="Galeri 8" />
+              </div>
+              <div
+                class="gallery-item gi-half"
+                data-gi="8"
+                style="aspect-ratio: 1/1"
+              >
+                <img src="foto/galeri9.png" alt="Galeri 9" />
+              </div>
+
+              <!-- Baris 6: full lebar landscape -->
+              <div
+                class="gallery-item"
+                data-gi="9"
+                style="grid-column: span 2; aspect-ratio: 4/3"
+              >
+                <img src="foto/galeri10.png" alt="Galeri 10" />
+              </div>
+            </div>
+            <!-- end gallery-grid -->
+          </div>
+          <!-- end gallery-content -->
+        </div>
+        <!-- end gallery-section -->
+      </section>
+
+      <!-- ---- Section: Blessing ---- -->
+      <section id="section-blessing" class="page page-blessing">
+        <!-- ===== SUB-SECTION: WEDDING GIFT ===== -->
+        <div class="gift-section">
+          <!-- Layer 1: Foto background -->
+          <div class="gift-bg">
+            <img src="foto/foto8.png" alt="" />
+          </div>
+
+          <!-- Layer 2: Overlay hitam 50% -->
+          <div class="gift-overlay"></div>
+
+          <!-- Layer 3: Konten -->
+          <div class="gift-content">
+            <!-- Judul -->
+            <div class="gift-header wg-reveal" data-wg="0">
+              <p class="gift-label">Send Blessing</p>
+              <h2 class="gift-title">Wedding Gift</h2>
+              <div class="gift-title-line"></div>
+            </div>
+
+            <!-- Teks keterangan -->
+            <p class="gift-desc wg-reveal" data-wg="1">
+              Kehadiran dan doa restu Anda sudah menjadi hadiah terindah bagi
+              kami.
+            </p>
+            <p class="gift-desc wg-reveal" data-wg="2">
+              Namun, apabila Anda ingin memberikan tanda kasih, kami dengan
+              senang hati menerimanya melalui:
+            </p>
+
+            <!-- Kartu rekening -->
+            <div class="gift-card wg-reveal" data-wg="3">
+              <!-- QR Code image -->
+              <div class="gift-qr">
+                <img src="asset/rekening.png" alt="QR Code QRIS" />
+              </div>
+
+              <!-- Info rekening -->
+              <div class="gift-bank-info">
+                <p class="gift-bank-name">Bank Jatim</p>
+                <div class="gift-account-row">
+                  <span class="gift-account-number">1234567890</span>
+                  <button
+                    class="gift-copy-btn"
+                    onclick="salinRekening(this)"
+                    title="Salin nomor rekening"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        x="9"
+                        y="9"
+                        width="13"
+                        height="13"
+                        rx="2"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                      <path
+                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <p class="gift-account-name">Umi Rubaiyah, S.Pd.</p>
+              </div>
+            </div>
+          </div>
+          <!-- end gift-content -->
+        </div>
+        <!-- end gift-section -->
+
+        <!-- ===== SUB-SECTION: WEDDING WISH ===== -->
+        <div class="wish-section">
+          <!-- Layer 1: Overlay hitam 50% (tanpa foto, global-bg terlihat) -->
+          <div class="wish-overlay"></div>
+
+          <!-- Layer 2: Konten -->
+          <div class="wish-content">
+            <!-- Judul -->
+            <div class="ww-reveal" data-ww="0">
+              <p class="wish-label">Send Blessing</p>
+              <h2 class="wish-title">Wedding Wish</h2>
+              <div class="wish-title-line"></div>
+            </div>
+
+            <!-- Deskripsi -->
+            <p class="wish-desc ww-reveal" data-ww="1">
+              Kirimkan doa dan ucapan terbaik untuk kami :
+            </p>
+
+            <!-- Form -->
+            <div class="wish-form ww-reveal" data-ww="2">
+              <input
+                type="text"
+                id="wish-name"
+                class="wish-input"
+                placeholder="Nama Anda"
+                maxlength="60"
+              />
+              <!-- Custom Dropdown Kehadiran -->
+              <div
+                class="wish-dropdown"
+                id="wish-dropdown"
+                onclick="toggleDropdown()"
+              >
+                <span class="wish-dropdown-label" id="wish-dropdown-label"
+                  >Pilih Kehadiran Anda</span
+                >
+                <span class="wish-dropdown-arrow" id="wish-dropdown-arrow">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6 9l6 6 6-6"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <div class="wish-dropdown-menu" id="wish-dropdown-menu">
+                  <div
+                    class="wish-dropdown-item"
+                    data-value=""
+                    onclick="selectAttend(event, '', 'Pilih Kehadiran Anda')"
+                  >
+                    Pilih Kehadiran Anda
+                  </div>
+                  <div
+                    class="wish-dropdown-item"
+                    data-value="hadir"
+                    onclick="selectAttend(event, 'hadir', '✓  Hadir')"
+                  >
+                    ✓ Hadir
+                  </div>
+                  <div
+                    class="wish-dropdown-item"
+                    data-value="tidak"
+                    onclick="selectAttend(event, 'tidak', '✗  Tidak Hadir')"
+                  >
+                    ✗ Tidak Hadir
+                  </div>
+                </div>
+              </div>
+              <!-- Hidden value holder -->
+              <input type="hidden" id="wish-attend" value="" />
+              <textarea
+                id="wish-msg"
+                class="wish-textarea"
+                placeholder="Tulis ucapan anda . . ."
+                rows="4"
+                maxlength="300"
+              ></textarea>
+              <button class="wish-send-btn" onclick="kirimUcapan()">
+                Kirim
+              </button>
+            </div>
+
+            <!-- Daftar Kehadiran -->
+            <div class="wish-attendance ww-reveal" data-ww="3">
+              <div class="wish-attendance-title">
+                <div class="wish-att-line"></div>
+                <h3>Daftar Kehadiran</h3>
+                <div class="wish-att-line"></div>
+              </div>
+              <div class="wish-att-counts">
+                <div class="wish-att-count">
+                  <span class="wish-att-num" id="count-hadir">0</span>
+                  <span class="wish-att-lbl">Hadir</span>
+                </div>
+                <div class="wish-att-divider"></div>
+                <div class="wish-att-count">
+                  <span class="wish-att-num" id="count-tidak">0</span>
+                  <span class="wish-att-lbl">Tidak Hadir</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Daftar Pesan -->
+            <div class="wish-messages ww-reveal" data-ww="4">
+              <div id="wish-list" class="wish-list">
+                <!-- pesan diisi oleh JS -->
+              </div>
+
+              <!-- Pagination seperti Google tapi cantik -->
+              <div class="wish-pagination" id="wish-pagination"></div>
+            </div>
+
+            <!-- Penutup undangan -->
+            <div class="wish-closing ww-reveal" data-ww="5">
+              <div class="wish-closing-inner">
+                <!-- Doa Arab: Barakallahu lana wa lakum -->
+                <p class="wish-closing-arabic">
+                  بَارَكَ اللهُ لَنَا وَلَكُم<br />
+                  وَجَمَعَ بَيْنَنَا فِي خَيْر
+                </p>
+                <p class="wish-closing-arabic-latin">
+                  "Barakallahu lana wa lakum,<br />wajma'a bainana fi khair."
+                </p>
+
+                <div class="wish-closing-line"></div>
+
+                <!-- Nama & tanggal -->
+                <p class="wish-closing-names">Varin &amp; Ringga</p>
+                <p class="wish-closing-sub">3 Juli 2026</p>
+
+                <!-- Foto pengantin -->
+                <div class="wish-closing-photo">
+                  <img src="foto/foto9.png" alt="Foto Pengantin" />
+                </div>
+
+                <div class="wish-closing-line"></div>
+
+                <!-- Teks penutup pilihan 3 -->
+                <p class="wish-closing-text">
+                  Terima kasih telah menjadi bagian dari hari istimewa kami.
+                  Semoga doa Anda menjadi pemberi kebahagiaan untuk kami
+                  selamanya.
+                </p>
+
+                <!-- Credit -->
+                <p class="wish-closing-credit">made with love by Filah</p>
+              </div>
+            </div>
+          </div>
+          <!-- end wish-content -->
+        </div>
+        <!-- end wish-section -->
+      </section>
+
+      <!-- ============ BOTTOM NAV BAR ============ -->
+      <nav id="bottom-nav">
+        <button
+          class="nav-btn active"
+          data-target="section-opening"
+          onclick="scrollToSection('section-opening', this)"
+        >
+          <span class="nav-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M9 21V12h6v9"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <span class="nav-label">Opening</span>
+        </button>
+        <button
+          class="nav-btn"
+          data-target="section-couple"
+          onclick="scrollToSection('section-couple', this)"
+        >
+          <span class="nav-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 21C12 21 4 15.5 4 9.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5C20 15.5 12 21 12 21z"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <span class="nav-label">Couple</span>
+        </button>
+        <button
+          class="nav-btn"
+          data-target="section-event"
+          onclick="scrollToSection('section-event', this)"
+        >
+          <span class="nav-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="3"
+                y="4"
+                width="18"
+                height="18"
+                rx="2"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <path d="M3 9h18" stroke="currentColor" stroke-width="1.8" />
+              <path
+                d="M8 2v4M16 2v4"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+              <circle cx="8" cy="14" r="1" fill="currentColor" />
+              <circle cx="12" cy="14" r="1" fill="currentColor" />
+              <circle cx="16" cy="14" r="1" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="nav-label">Event</span>
+        </button>
+        <button
+          class="nav-btn"
+          data-target="section-moment"
+          onclick="scrollToSection('section-moment', this)"
+        >
+          <span class="nav-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="2"
+                y="6"
+                width="20"
+                height="15"
+                rx="2"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <circle
+                cx="12"
+                cy="13.5"
+                r="3.5"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <path
+                d="M8 6l1.5-2.5h5L16 6"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <span class="nav-label">Moment</span>
+        </button>
+        <button
+          class="nav-btn"
+          data-target="section-blessing"
+          onclick="scrollToSection('section-blessing', this)"
+        >
+          <span class="nav-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 3c-1 2-4 3.5-4 7a4 4 0 0 0 8 0c0-3.5-3-5-4-7z"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8 17c-2.5.5-4 1.5-4 2.5C4 21 7.6 22 12 22s8-1 8-2.5c0-1-1.5-2-4-2.5"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+          <span class="nav-label">Blessing</span>
+        </button>
+      </nav>
+    </div>
+    <!-- end #invitation -->
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
