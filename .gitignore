@@ -1,0 +1,21 @@
+# ============================================================
+#  .gitignore – Wedding Invitation
+# ============================================================
+
+# ⚠️  FILE RAHASIA – jangan pernah di-commit!
+api/db.php
+
+# Sistem
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Log
+*.log
+error_log
