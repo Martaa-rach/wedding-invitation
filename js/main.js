@@ -452,6 +452,35 @@ function salinRekening(btn) {
     });
 }
 
+/* Salin teks dari elemen berdasarkan ID */
+function salinAlamat(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  // innerText biar <br> jadi newline, bukan literal "<br>"
+  const teks = el.innerText || el.textContent;
+
+  navigator.clipboard
+    .writeText(teks)
+    .then(() => {
+      btn.classList.add("copied");
+      setTimeout(() => btn.classList.remove("copied"), 2000);
+    })
+    .catch(() => {
+      // fallback untuk browser lama
+      const ta = document.createElement("textarea");
+      ta.value = teks;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      btn.classList.add("copied");
+      setTimeout(() => btn.classList.remove("copied"), 2000);
+    });
+}
+
 /* =============================================
    WEDDING GIFT REVEAL – staggered dua arah
    ============================================= */

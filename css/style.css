@@ -745,6 +745,14 @@ body {
   letter-spacing: 0.15em;
   margin-bottom: 2.5rem;
 }
+.acara-jam-2 {
+  font-family: "EB Garamond", serif;
+  font-size: clamp(1.55rem, 5.5vw, 1.6rem);
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0.15em;
+  margin-bottom: 2.5rem;
+}
 .acara-divider {
   width: 60px;
   height: 1px;
@@ -753,29 +761,29 @@ body {
 }
 .acara-tempat {
   font-family: "EB Garamond", serif;
-  font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+  font-size: clamp(1.4rem, 4.5vw, 1.3rem);
   color: #fff;
   font-weight: 600;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
 }
 .acara-alamat {
   font-family: "EB Garamond", serif;
-  font-size: clamp(1.55rem, 3.8vw, 1.1rem);
+  font-size: clamp(0.7rem, 3.8vw, 1.1rem);
   font-weight: 100;
   color: rgba(255, 255, 255, 0.65);
   margin-bottom: 5.8rem;
 }
 .acara-maps-btn {
   display: inline-block;
-  padding: 0.85rem 2.5rem;
+  padding: 0.85rem 2.9rem;
   background: rgba(255, 255, 255, 0.15);
   border: 1.5px solid rgba(255, 255, 255, 0.6);
   border-radius: 50px;
   font-family: "EB Garamond", serif;
-  font-size: clamp(1.05rem, 4vw, 1.2rem);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   color: #fff;
   text-decoration: none;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   margin-top: 3rem;
   transition: background 0.3s;
 }
@@ -1865,6 +1873,91 @@ body {
   font-style: italic;
 }
 
+/* =============================================
+   GIFT CARD: ALAMAT RUMAH
+   ============================================= */
+
+.gift-address-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.gift-address-icon {
+  width: 28px;
+  height: 28px;
+  color: #1a1a1a;
+  opacity: 0.75;
+}
+
+.gift-address-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.21em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  opacity: 0.7;
+}
+
+.gift-address-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 1px;
+}
+
+.gift-address-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.gift-address-row--top {
+  align-items: flex-start;
+}
+
+.gift-row-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: #1a1a1a;
+  opacity: 0.55;
+  margin-top: 1px;
+}
+
+.gift-address-row--top .gift-row-icon {
+  margin-top: 3px;
+}
+
+.gift-address-text-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.gift-address-row--top .gift-address-text-wrap {
+  align-items: flex-start;
+}
+
+.gift-address-value {
+  font-family: "EB Garamond", serif;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* Tombol salin di kartu alamat — ukuran lebih kecil */
+.gift-addr-copy svg {
+  width: 16px;
+  height: 16px;
+}
 /* =============================================
    SECTION: WEDDING WISH
    ============================================= */
