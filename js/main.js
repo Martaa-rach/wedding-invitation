@@ -9,6 +9,17 @@ let musicPlaying = false;
 
 /* ---------- Auto-play music on load ---------- */
 window.addEventListener("load", () => {
+  // ===== NAMA TAMU DARI URL PARAMETER =====
+  const params = new URLSearchParams(window.location.search);
+  const guestName = params.get("to");
+  const recipientEl = document.querySelector(".recipient-name");
+  if (recipientEl) {
+    recipientEl.textContent = guestName
+      ? decodeURIComponent(guestName)
+      : "Tamu Undangan";
+  }
+  // =========================================
+
   music.volume = 0.6;
 
   const tryPlay = () => {
