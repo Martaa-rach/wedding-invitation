@@ -531,96 +531,92 @@ function initGiftReveal() {
 }
 
 /* =============================================
-   WEDDING WISH – STATE & DATA
+   WEDDING WISH – STATE & DATA (dari API)
    ============================================= */
 
-// Data pesan (disimpan di memory; backend nanti)
-let wishData = [
-  {
-    name: "Varin",
-    attend: "hadir",
-    msg: "Selamat menempuh hidup baru yaaaa...",
-    time: "05/03/2026, 09.00",
-  },
-  {
-    name: "Budi Santoso",
-    attend: "hadir",
-    msg: "Semoga menjadi keluarga yang sakinah mawaddah warahmah 🤍",
-    time: "05/03/2026, 10.15",
-  },
-  {
-    name: "Siti Rahma",
-    attend: "tidak",
-    msg: "Maaf tidak bisa hadir, semoga langgeng dan bahagia selalu!",
-    time: "05/03/2026, 11.00",
-  },
-  {
-    name: "Ahmad Fauzi",
-    attend: "hadir",
-    msg: "Barakallahu lakuma wa baraka alaikuma wa jama'a bainakuma fi khair.",
-    time: "05/03/2026, 11.30",
-  },
-  {
-    name: "Dewi Kurnia",
-    attend: "hadir",
-    msg: "Selamat ya! Semoga rumah tangganya penuh berkah dan cinta 💕",
-    time: "05/03/2026, 12.00",
-  },
-  {
-    name: "Rizky Pratama",
-    attend: "tidak",
-    msg: "Doanya dari jauh semoga selalu dilindungi Allah SWT.",
-    time: "05/03/2026, 13.20",
-  },
-  {
-    name: "Nurul Hidayah",
-    attend: "hadir",
-    msg: "Semoga menjadi pasangan yang saling melengkapi selamanya.",
-    time: "05/03/2026, 14.00",
-  },
-  {
-    name: "Fajar Ramadhan",
-    attend: "hadir",
-    msg: "Selamat berbahagia! Semoga pernikahan ini menjadi ladang pahala.",
-    time: "05/03/2026, 14.45",
-  },
-  {
-    name: "Rina Marlina",
-    attend: "tidak",
-    msg: "Tidak bisa hadir tapi doa selalu menyertai kalian berdua 🌸",
-    time: "05/03/2026, 15.10",
-  },
-  {
-    name: "Hendra Wijaya",
-    attend: "hadir",
-    msg: "Barakallah! Semoga menjadi keluarga yang harmonis dan penuh kasih.",
-    time: "05/03/2026, 15.50",
-  },
-  {
-    name: "Laila Fitri",
-    attend: "hadir",
-    msg: "Selamat menempuh hidup baru, semoga selalu dalam lindungan-Nya.",
-    time: "05/03/2026, 16.20",
-  },
-  {
-    name: "Toni Agus",
-    attend: "tidak",
-    msg: "Maaf tidak bisa hadir. Semoga bahagia dunia akhirat!",
-    time: "05/03/2026, 17.00",
-  },
-];
-
-const WISH_PER_PAGE = 7;
+const WISH_API = "api/wishes.php";
 let wishPage = 1;
+let wishTotalPages = 1;
+
+/* =============================================
+   TOAST NOTIFICATION
+   ============================================= */
+let toastTimer = null;
+
+function showToast(type, title, msg) {
+  let toast = document.getElementById("toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "toast";
+    toast.innerHTML = `
+      <span class="toast-icon"></span>
+      <div class="toast-body">
+        <span class="toast-title"></span>
+        <span class="toast-msg"></span>
+      </div>
+      <button class="toast-close" onclick="hideToast()">✕</button>
+    `;
+    document.body.appendChild(toast);
+  }
+  toast.querySelector(".toast-icon").textContent =
+    type === "success" ? "🌸" : "😔";
+  toast.querySelector(".toast-title").textContent = title;
+  toast.querySelector(".toast-msg").textContent = msg;
+  toast.className = `toast-${type}`;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => toast.classList.add("toast-show"));
+  });
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(hideToast, 4000);
+}
+
+function hideToast() {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+  toast.classList.remove("toast-show");
+  if (toastTimer) {
+    clearTimeout(toastTimer);
+    toastTimer = null;
+  }
+}
+
+/* =============================================
+   WEDDING WISH – FETCH DATA DARI API
+   ============================================= */
+async function fetchWishes(page = 1) {
+  const list = document.getElementById("wish-list");
+  if (list) {
+    list.innerHTML = `<p style="color:rgba(255,255,255,0.5);font-family:'EB Garamond',serif;font-size:1rem;text-align:center;padding:20px 0;">Memuat ucapan... 🌸</p>`;
+  }
+
+  try {
+    const res = await fetch(`${WISH_API}?page=${page}`);
+    const data = await res.json();
+
+    if (!data.success) throw new Error("Gagal fetch");
+
+    wishPage = data.page;
+    wishTotalPages = data.total_pages;
+
+    renderWishList(data.data);
+    renderPagination(data.total_pages, data.page);
+    updateAttendCount(data.hadir, data.tidak);
+  } catch (e) {
+    if (list) {
+      list.innerHTML = `<p style="color:rgba(255,100,100,0.8);font-family:'EB Garamond',serif;font-size:1rem;text-align:center;padding:20px 0;">Gagal memuat ucapan. Coba refresh halaman.</p>`;
+    }
+  }
+}
 
 /* =============================================
    WEDDING WISH – KIRIM UCAPAN
    ============================================= */
-function kirimUcapan() {
+async function kirimUcapan() {
   const nameEl = document.getElementById("wish-name");
   const attendEl = document.getElementById("wish-attend");
   const msgEl = document.getElementById("wish-msg");
   const dropdownEl = document.getElementById("wish-dropdown");
+  const submitBtn = document.querySelector(".wish-submit-btn");
 
   const name = nameEl.value.trim();
   const attend = attendEl.value;
@@ -645,123 +641,136 @@ function kirimUcapan() {
   }
   if (!valid) return;
 
-  // Format waktu sekarang
-  const now = new Date();
-  const pad = (n) => String(n).padStart(2, "0");
-  const timeStr = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()}, ${pad(now.getHours())}.${pad(now.getMinutes())}`;
-
-  // Tambahkan ke awal array
-  wishData.unshift({ name, attend, msg, time: timeStr });
-
-  // Reset form
-  nameEl.value = "";
-  attendEl.value = "";
-  msgEl.value = "";
-  // Reset custom dropdown
-  const lbl = document.getElementById("wish-dropdown-label");
-  if (lbl) lbl.textContent = "Pilih Kehadiran Anda";
-  if (dropdownEl) {
-    dropdownEl.classList.remove("selected", "open");
+  // Disable tombol saat loading
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Mengirim...";
   }
-  document
-    .querySelectorAll(".wish-dropdown-item")
-    .forEach((i) => i.classList.remove("active"));
 
-  // Update UI
-  wishPage = 1;
-  renderWishList();
-  renderPagination();
-  updateAttendCount();
+  try {
+    const res = await fetch(WISH_API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nama: name, kehadiran: attend, pesan: msg }),
+    });
+    const data = await res.json();
+
+    if (!data.success) throw new Error(data.message || "Gagal");
+
+    showToast(
+      "success",
+      "Ucapan terkirim! 🎉",
+      "Terima kasih, doa kamu sudah tersimpan.",
+    );
+
+    // Reset form
+    nameEl.value = "";
+    attendEl.value = "";
+    msgEl.value = "";
+    const lbl = document.getElementById("wish-dropdown-label");
+    if (lbl) lbl.textContent = "Pilih Kehadiran Anda";
+    if (dropdownEl) dropdownEl.classList.remove("selected", "open");
+    document
+      .querySelectorAll(".wish-dropdown-item")
+      .forEach((i) => i.classList.remove("active"));
+
+    // Kembali ke halaman 1 dan refresh
+    wishPage = 1;
+    await fetchWishes(1);
+  } catch (e) {
+    showToast(
+      "error",
+      "Ucapan gagal terkirim",
+      "Periksa koneksi internet kamu, lalu coba lagi.",
+    );
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Kirim Ucapan";
+    }
+  }
 }
 
 /* =============================================
    WEDDING WISH – RENDER PESAN
    ============================================= */
-function renderWishList() {
+function renderWishList(wishes) {
   const list = document.getElementById("wish-list");
   if (!list) return;
 
-  const total = wishData.length;
-  const start = (wishPage - 1) * WISH_PER_PAGE;
-  const pageData = wishData.slice(start, start + WISH_PER_PAGE);
-
   list.innerHTML = "";
 
-  if (total === 0) {
+  if (!wishes || wishes.length === 0) {
     list.innerHTML = `<p style="color:rgba(255,255,255,0.6);font-family:'EB Garamond',serif;font-size:1rem;text-align:center;padding:20px 0;">Belum ada ucapan. Jadilah yang pertama! 🌸</p>`;
     return;
   }
 
-  pageData.forEach((item, i) => {
+  wishes.forEach((item, i) => {
+    const isHadir = item.kehadiran === "Hadir";
     const card = document.createElement("div");
     card.className = "wish-card";
     card.innerHTML = `
       <div class="wish-card-top">
-        <span class="wish-card-name">${escHtml(item.name)}</span>
-        <span class="wish-card-time">${escHtml(item.time)}</span>
+        <span class="wish-card-name">${escHtml(item.nama)}</span>
+        <span class="wish-card-time">${escHtml(item.tanggal)}</span>
       </div>
-      <span class="wish-card-badge ${item.attend === "hadir" ? "hadir" : "tidak"}">${item.attend === "hadir" ? "✓ Hadir" : "✗ Tidak Hadir"}</span>
-      <p class="wish-card-msg">${escHtml(item.msg)}</p>
+      <span class="wish-card-badge ${isHadir ? "hadir" : "tidak"}">${isHadir ? "✓ Hadir" : "✗ Tidak Hadir"}</span>
+      <p class="wish-card-msg">${escHtmlBr(item.pesan)}</p>
     `;
     list.appendChild(card);
-
-    // Staggered reveal
     setTimeout(() => card.classList.add("wc-in"), i * 80);
   });
 }
 
 function escHtml(str) {
-  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+// Seperti escHtml tapi newline dikonversi ke <br> agar Enter tampil di HTML
+function escHtmlBr(str) {
+  return escHtml(str).replace(/\n/g, "<br>");
 }
 
 /* =============================================
    WEDDING WISH – PAGINATION
    ============================================= */
-function renderPagination() {
+function renderPagination(totalPages, currentPage) {
   const pg = document.getElementById("wish-pagination");
   if (!pg) return;
 
-  const totalPages = Math.ceil(wishData.length / WISH_PER_PAGE);
   pg.innerHTML = "";
-
   if (totalPages <= 1) return;
 
-  // Tombol Previous
   const prev = document.createElement("button");
   prev.className = "wp-btn wp-arrow";
   prev.innerHTML = `‹ Sebelumnya`;
-  prev.disabled = wishPage === 1;
+  prev.disabled = currentPage === 1;
   prev.onclick = () => {
-    wishPage--;
-    renderWishList();
-    renderPagination();
+    fetchWishes(currentPage - 1);
     scrollToWishList();
   };
   pg.appendChild(prev);
 
-  // Nomor halaman
   for (let p = 1; p <= totalPages; p++) {
     const btn = document.createElement("button");
-    btn.className = "wp-btn" + (p === wishPage ? " active" : "");
+    btn.className = "wp-btn" + (p === currentPage ? " active" : "");
     btn.textContent = p;
     btn.onclick = ((page) => () => {
-      wishPage = page;
-      renderWishList();
-      renderPagination();
+      fetchWishes(page);
       scrollToWishList();
     })(p);
     pg.appendChild(btn);
   }
 
-  // Tombol Next
   const next = document.createElement("button");
   next.className = "wp-btn wp-arrow";
   next.innerHTML = `Berikutnya ›`;
-  next.disabled = wishPage === totalPages;
+  next.disabled = currentPage === totalPages;
   next.onclick = () => {
-    wishPage++;
-    renderWishList();
-    renderPagination();
+    fetchWishes(currentPage + 1);
     scrollToWishList();
   };
   pg.appendChild(next);
@@ -775,13 +784,11 @@ function scrollToWishList() {
 /* =============================================
    WEDDING WISH – HITUNG KEHADIRAN
    ============================================= */
-function updateAttendCount() {
-  const hadir = wishData.filter((d) => d.attend === "hadir").length;
-  const tidak = wishData.filter((d) => d.attend === "tidak").length;
+function updateAttendCount(hadir, tidak) {
   const elH = document.getElementById("count-hadir");
   const elT = document.getElementById("count-tidak");
-  if (elH) elH.textContent = hadir;
-  if (elT) elT.textContent = tidak;
+  if (elH) elH.textContent = hadir ?? 0;
+  if (elT) elT.textContent = tidak ?? 0;
 }
 
 /* =============================================
@@ -819,10 +826,8 @@ function initWishReveal() {
 
   items.forEach((el) => observer.observe(el));
 
-  // Render awal
-  renderWishList();
-  renderPagination();
-  updateAttendCount();
+  // Load data dari API
+  fetchWishes(1);
 }
 
 /* =============================================
