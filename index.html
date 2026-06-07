@@ -2,10 +2,7 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wedding Invitation – Varin & Ringga</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,7 +31,7 @@
 
     <!-- MUSIC -->
     <audio id="bg-music" loop>
-      <source src="asset/music.mpeg" type="audio/mpeg" />
+      <source src="asset/music.mp3" type="audio/mpeg" />
     </audio>
 
     <!-- ============================================================
@@ -45,22 +42,26 @@
     <section id="cover">
       <!-- Layer 1: Foto mempelai – muncul pertama -->
       <div class="cover-photo" id="cover-photo">
-        <img src="foto/fotoCover.jpeg" alt="Foto Mempelai" />
+        <img
+          src="foto/fotoCover.webp"
+          fetchpriority="high"
+          alt="Foto Mempelai"
+        />
       </div>
 
       <!-- Layer 2: Background asset overlay -->
       <div class="cover-bg" id="cover-bg">
-        <img src="asset/cover.png" alt="Cover Background" />
+        <img src="asset/cover.webp" alt="Cover Background" />
       </div>
 
       <!-- Layer 4a: Bunga atas – full lebar -->
       <div class="flower-top" id="flower-top-cover">
-        <img src="asset/bungaAtas.png" alt="" />
+        <img src="asset/bungaAtas.webp" alt="" />
       </div>
 
       <!-- Layer 4b: Bunga sudut bawah kanan -->
       <div class="flower-bottom-right" id="flower-bottom-cover">
-        <img src="asset/bungaSudutBawah.png" alt="" />
+        <img src="asset/bungaSudutBawah.webp" alt="" />
       </div>
 
       <!-- Layer 3a: Teks atas – nama mempelai -->
@@ -88,7 +89,7 @@
   ============================================================ -->
     <div id="invitation" class="hidden">
       <!-- Global Background Fixed -->
-      <div id="global-bg"><img src="foto/background.png" alt="" /></div>
+      <div id="global-bg"><img src="foto/background.jpeg" alt="" /></div>
 
       <!-- Music Toggle -->
       <button id="music-btn" onclick="toggleMusic()" title="Toggle Music">
@@ -136,13 +137,13 @@
       <!-- Layout: nama mempelai di atas, foto di tengah, kutipan di bawah -->
       <section id="section-opening" class="page page-opening">
         <div class="opening-photo">
-          <img src="foto/foto1.jpeg" alt="Foto Mempelai" />
+          <img src="foto/foto1.webp" alt="Foto Mempelai" />
         </div>
         <div class="opening-overlay"></div>
 
         <!-- Bunga atas -->
         <div class="flower-top-opening">
-          <img src="asset/bungaAtas.png" alt="" />
+          <img src="asset/bungaAtas.webp" alt="" />
         </div>
 
         <!-- Teks atas: nama mempelai -->
@@ -166,7 +167,7 @@
       <section id="section-opening2" class="page page-opening2">
         <!-- Layer 1: Foto -->
         <div class="op2-photo">
-          <img src="foto/foto2.jpeg" alt="Foto Mempelai" />
+          <img src="foto/foto2.webp" alt="Foto Mempelai" />
         </div>
 
         <!-- Layer 2: Overlay putih 30% -->
@@ -270,7 +271,7 @@
             class="couple-card reveal-2way enter-bottom"
             style="transition-delay: 0.12s"
           >
-            <img src="foto/foto4.png" alt="Mempelai Wanita" />
+            <img src="foto/foto4.webp" alt="Mempelai Wanita" />
           </div>
         </div>
 
@@ -281,7 +282,7 @@
         <div class="couple-screen couple-screen-groom">
           <!-- Foto pria – di tengah atas, melengkung -->
           <div class="couple-card reveal-2way enter-bottom">
-            <img src="foto/foto5.png" alt="Mempelai Pria" />
+            <img src="foto/foto5.webp" alt="Mempelai Pria" />
           </div>
 
           <!-- Teks: rata kiri, di bawah -->
@@ -330,7 +331,7 @@
         <div class="event-countdown">
           <!-- Foto background -->
           <div class="event-cd-photo">
-            <img src="foto/foto6.png" alt="" />
+            <img src="foto/foto6.webp" alt="" />
           </div>
           <!-- Overlay hitam 50% -->
           <div class="event-cd-overlay"></div>
@@ -617,7 +618,7 @@
         <div class="gallery-section">
           <!-- Layer 1: Foto background -->
           <div class="gallery-bg">
-            <img src="foto/foto7.png" alt="" />
+            <img src="foto/foto7.webp" alt="" />
           </div>
 
           <!-- Layer 2: Overlay hitam 50% -->
@@ -640,7 +641,7 @@
                 data-gi="0"
                 style="grid-column: span 2; aspect-ratio: 4/2"
               >
-                <img src="foto/galeri1.png" alt="Galeri 1" />
+                <img src="foto/galeri1.webp" alt="Galeri 1" />
               </div>
 
               <!-- Baris 2: 3 foto, 1 potrait dan 2 kotak -->
@@ -649,21 +650,21 @@
                 data-gi="1"
                 style="grid-row: span 2; aspect-ratio: 3/6.2"
               >
-                <img src="foto/galeri2.png" alt="Galeri 2" />
+                <img src="foto/galeri2.webp" alt="Galeri 2" />
               </div>
               <div
                 class="gallery-item"
                 data-gi="2"
                 style="grid-column: span 1; aspect-ratio: 1/1"
               >
-                <img src="foto/galeri3.png" alt="Galeri 3" />
+                <img src="foto/galeri3.webp" alt="Galeri 3" />
               </div>
               <div
                 class="gallery-item"
                 data-gi="3"
                 style="grid-column: span 1; aspect-ratio: 1/1"
               >
-                <img src="foto/galeri4.png" alt="Galeri 4" />
+                <img src="foto/galeri4.webp" alt="Galeri 4" />
               </div>
 
               <!-- Baris 3: 1 foto lanscape-->
@@ -672,7 +673,7 @@
                 data-gi="4"
                 style="grid-column: span 2; aspect-ratio: 4/2"
               >
-                <img src="foto/galeri5.png" alt="Galeri 5" />
+                <img src="foto/galeri5.webp" alt="Galeri 5" />
               </div>
 
               <!-- Baris 4: 2 foto, 1 kotak dan 1 potrait-->
@@ -681,14 +682,14 @@
                 data-gi="5"
                 style="grid-column: span 1; aspect-ratio: 1/1"
               >
-                <img src="foto/galeri6.png" alt="Galeri 6" />
+                <img src="foto/galeri6.webp" alt="Galeri 6" />
               </div>
               <div
                 class="gallery-item"
                 data-gi="6"
                 style="grid-row: span 2; aspect-ratio: 3/6.2"
               >
-                <img src="foto/galeri7.png" alt="Galeri 7" />
+                <img src="foto/galeri7.webp" alt="Galeri 7" />
               </div>
 
               <!-- Baris 5: 2 foto, 1 potrait dan 1 kotak-->
@@ -697,14 +698,14 @@
                 data-gi="7"
                 style="grid-row: span 2; aspect-ratio: 3/6.2"
               >
-                <img src="foto/galeri8.png" alt="Galeri 8" />
+                <img src="foto/galeri8.webp" alt="Galeri 8" />
               </div>
               <div
                 class="gallery-item gi-half"
                 data-gi="8"
                 style="aspect-ratio: 1/1"
               >
-                <img src="foto/galeri9.png" alt="Galeri 9" />
+                <img src="foto/galeri9.webp" alt="Galeri 9" />
               </div>
 
               <!-- Baris 6: full lebar landscape -->
@@ -713,7 +714,7 @@
                 data-gi="9"
                 style="grid-column: span 2; aspect-ratio: 4/3"
               >
-                <img src="foto/galeri10.png" alt="Galeri 10" />
+                <img src="foto/galeri10.webp" alt="Galeri 10" />
               </div>
             </div>
             <!-- end gallery-grid -->
@@ -729,7 +730,7 @@
         <div class="gift-section">
           <!-- Layer 1: Foto background -->
           <div class="gift-bg">
-            <img src="foto/foto8.png" alt="" />
+            <img src="foto/foto8.webp" alt="" />
           </div>
 
           <!-- Layer 2: Overlay hitam 50% -->
@@ -793,7 +794,7 @@
                     </svg>
                   </button>
                 </div>
-                <p class="gift-account-name">Umi Rubaiyah, S.Pd.</p>
+                <p class="gift-account-name">Umi Rubaiyah</p>
               </div>
             </div>
             <!-- Alamat Rumah (kirim paket kesini) -->
@@ -1102,7 +1103,7 @@
             </div>
 
             <!-- Daftar Pesan -->
-            <div class="wish-messages ww-reveal" data-ww="4">
+            <div class="wish-messages ww-fade-reveal" data-ww="4">
               <div id="wish-list" class="wish-list">
                 <!-- pesan diisi oleh JS -->
               </div>
@@ -1112,7 +1113,7 @@
             </div>
 
             <!-- Penutup undangan -->
-            <div class="wish-closing ww-reveal" data-ww="5">
+            <div class="wish-closing ww-fade-reveal" data-ww="5">
               <div class="wish-closing-inner">
                 <!-- Doa Arab: Barakallahu lana wa lakum -->
                 <p class="wish-closing-arabic">
@@ -1131,7 +1132,7 @@
 
                 <!-- Foto pengantin -->
                 <div class="wish-closing-photo">
-                  <img src="foto/foto9.png" alt="Foto Pengantin" />
+                  <img src="foto/foto9.webp" alt="Foto Pengantin" />
                 </div>
 
                 <div class="wish-closing-line"></div>

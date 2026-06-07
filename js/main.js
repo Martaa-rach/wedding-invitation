@@ -1,3 +1,16 @@
+// ============================================================
+//  KUNCI TINGGI VIEWPORT SEKALI SAAT LOAD
+//  Agar background tidak zoom/resize saat address bar Chrome muncul/hilang
+// ============================================================
+(function () {
+  const lockViewport = () => {
+    const vh = window.innerHeight;
+    document.documentElement.style.setProperty("--vh-fixed", vh + "px");
+  };
+  lockViewport(); // set saat pertama load
+  // TIDAK ada listener resize — sengaja, agar tidak update saat address bar muncul/hilang
+})();
+
 /* =============================================
    WEDDING INVITATION – Varin & Ringga
    main.js  –  REVISI v2
@@ -325,37 +338,21 @@ window.addEventListener(
 
 /* ---------- Simpan ke Kalender (.ics) ---------- */
 function simpanKalender() {
-  const lines = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//Wedding Varin & Ringga//ID",
-    "BEGIN:VEVENT",
-    "DTSTART:20260703T010000Z",
-    "DTEND:20260703T020000Z",
-    "SUMMARY:Akad Nikah - Varin & Ringga",
-    "DESCRIPTION:Jumat 3 Juli 2026 pukul 08.00 WIB",
-    "LOCATION:nama tempat, Jl. apa? 32",
-    "END:VEVENT",
-    "BEGIN:VEVENT",
-    "DTSTART:20260703T020000Z",
-    "DTEND:20260703T070000Z",
-    "SUMMARY:Resepsi Pernikahan - Varin & Ringga",
-    "DESCRIPTION:Jumat 3 Juli 2026 pukul 09.00 WIB",
-    "LOCATION:nama tempat, Jl. apa? 32",
-    "END:VEVENT",
-    "END:VCALENDAR",
-  ];
-  const blob = new Blob([lines.join("\r\n")], {
-    type: "text/calendar;charset=utf-8",
-  });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "undangan-varin-ringga.ics";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  const title = encodeURIComponent("Pernikahan Varin & Ringga");
+  const details = encodeURIComponent(
+    "Resepsi Pernikahan Varin & Ringga\nJumat, 3 Juli 2026\n18.30 - 20.30 WIB\nKota Cinema Mall Jember",
+  );
+  const location = encodeURIComponent(
+    "Kota Cinema Mall (KCM) Jember, Jl. Gajah Mada No.176, Jember",
+  );
+
+  // Format: YYYYMMDDTHHmmssZ (UTC) — 18.30 WIB = 11.30 UTC, 20.30 WIB = 13.30 UTC
+  const start = "20260703T113000Z";
+  const end = "20260703T133000Z";
+
+  const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
+
+  window.open(url, "_blank");
 }
 
 /* =============================================
@@ -437,59 +434,62 @@ function initGalleryReveal() {
 /* =============================================
    WEDDING GIFT – SALIN REKENING
    ============================================= */
+// HAPUS salinRekening yang lama, ganti ini:
 function salinRekening(btn) {
   const norek = "1234567890";
-  navigator.clipboard
-    .writeText(norek)
-    .then(() => {
-      btn.classList.add("copied");
-      const origSvg = btn.innerHTML;
-      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>`;
-      setTimeout(() => {
-        btn.classList.remove("copied");
-        btn.innerHTML = origSvg;
-      }, 2000);
-    })
-    .catch(() => {
-      /* fallback manual */
-      const ta = document.createElement("textarea");
-      ta.value = norek;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-    });
+  copyToClipboard(norek, btn);
 }
 
-/* Salin teks dari elemen berdasarkan ID */
+// HAPUS salinAlamat yang lama, ganti ini:
 function salinAlamat(id, btn) {
   const el = document.getElementById(id);
   if (!el) return;
-
-  // innerText biar <br> jadi newline, bukan literal "<br>"
   const teks = el.innerText || el.textContent;
+  copyToClipboard(teks, btn);
+}
 
-  navigator.clipboard
-    .writeText(teks)
-    .then(() => {
-      btn.classList.add("copied");
-      setTimeout(() => btn.classList.remove("copied"), 2000);
-    })
-    .catch(() => {
-      // fallback untuk browser lama
-      const ta = document.createElement("textarea");
-      ta.value = teks;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-      btn.classList.add("copied");
-      setTimeout(() => btn.classList.remove("copied"), 2000);
-    });
+// TAMBAH dua fungsi helper baru ini:
+function copyToClipboard(teks, btn) {
+  const doSuccess = () => {
+    if (!btn) return;
+    btn.classList.add("copied");
+    const origHTML = btn.innerHTML;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+    setTimeout(() => {
+      btn.classList.remove("copied");
+      btn.innerHTML = origHTML;
+    }, 2000);
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard
+      .writeText(teks)
+      .then(doSuccess)
+      .catch(() => {
+        fallbackCopy(teks, doSuccess);
+      });
+  } else {
+    fallbackCopy(teks, doSuccess);
+  }
+}
+
+function fallbackCopy(teks, onSuccess) {
+  const ta = document.createElement("textarea");
+  ta.value = teks;
+  ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;font-size:16px;";
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  ta.setSelectionRange(0, ta.value.length);
+  try {
+    const ok = document.execCommand("copy");
+    if (ok && onSuccess) onSuccess();
+  } catch (e) {
+    console.warn("Copy gagal:", e);
+  }
+  document.body.removeChild(ta);
 }
 
 /* =============================================
@@ -586,6 +586,7 @@ function hideToast() {
 async function fetchWishes(page = 1) {
   const list = document.getElementById("wish-list");
   if (list) {
+    list.style.minHeight = list.offsetHeight + "px";
     list.innerHTML = `<p style="color:rgba(255,255,255,0.5);font-family:'EB Garamond',serif;font-size:1rem;text-align:center;padding:20px 0;">Memuat ucapan... 🌸</p>`;
   }
 
@@ -601,6 +602,7 @@ async function fetchWishes(page = 1) {
     renderWishList(data.data);
     renderPagination(data.total_pages, data.page);
     updateAttendCount(data.hadir, data.tidak);
+    if (list) list.style.minHeight = "";
   } catch (e) {
     if (list) {
       list.innerHTML = `<p style="color:rgba(255,100,100,0.8);font-family:'EB Garamond',serif;font-size:1rem;text-align:center;padding:20px 0;">Gagal memuat ucapan. Coba refresh halaman.</p>`;
@@ -750,7 +752,6 @@ function renderPagination(totalPages, currentPage) {
   prev.disabled = currentPage === 1;
   prev.onclick = () => {
     fetchWishes(currentPage - 1);
-    scrollToWishList();
   };
   pg.appendChild(prev);
 
@@ -760,7 +761,6 @@ function renderPagination(totalPages, currentPage) {
     btn.textContent = p;
     btn.onclick = ((page) => () => {
       fetchWishes(page);
-      scrollToWishList();
     })(p);
     pg.appendChild(btn);
   }
@@ -771,7 +771,6 @@ function renderPagination(totalPages, currentPage) {
   next.disabled = currentPage === totalPages;
   next.onclick = () => {
     fetchWishes(currentPage + 1);
-    scrollToWishList();
   };
   pg.appendChild(next);
 }
@@ -795,36 +794,70 @@ function updateAttendCount(hadir, tidak) {
    WEDDING WISH – REVEAL ANIMASI (staggered dua arah)
    ============================================= */
 function initWishReveal() {
+  // === ww-reveal: elemen ww=0..3 (judul, desc, form, attendance) ===
+  // Animasi dua arah dengan translateY - aman karena tinggi tidak berubah drastis
   const items = document.querySelectorAll(".ww-reveal");
-  if (!items.length) return;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const el = entry.target;
-        const idx = parseInt(el.dataset.ww || 0);
-        const delay = idx * 180;
-
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            el.classList.remove("ww-exit");
-            el.classList.add("ww-in");
-          }, delay);
-        } else {
-          const rect = el.getBoundingClientRect();
-          if (rect.top < 0) {
-            el.classList.remove("ww-in");
-            el.classList.add("ww-exit");
+  if (items.length) {
+    const twoWay = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+          const idx = parseInt(el.dataset.ww || 0);
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              el.classList.remove("ww-exit");
+              el.classList.add("ww-in");
+            }, idx * 180);
           } else {
-            el.classList.remove("ww-in", "ww-exit");
+            const rect = el.getBoundingClientRect();
+            if (rect.top < 0) {
+              el.classList.remove("ww-in");
+              el.classList.add("ww-exit");
+            } else {
+              el.classList.remove("ww-in", "ww-exit");
+            }
           }
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -30px 0px" },
-  );
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -30px 0px" },
+    );
+    items.forEach((el) => twoWay.observe(el));
+  }
 
-  items.forEach((el) => observer.observe(el));
+  // === ww-fade-reveal: wish-messages (ww=4) & wish-closing (ww=5) ===
+  // HANYA opacity+blur - TANPA translateY - tinggi tidak pernah berubah
+  const fadeItems = document.querySelectorAll(".ww-fade-reveal");
+  if (fadeItems.length) {
+    const fadeObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+          const idx = parseInt(el.dataset.ww || 0);
+          if (entry.isIntersecting) {
+            setTimeout(
+              () => {
+                el.classList.remove("wfr-dim");
+                el.classList.add("wfr-in");
+              },
+              (idx - 4) * 200,
+            );
+          } else {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < 0) {
+              // Sudah terlewat ke atas: redup tapi tidak hilang
+              el.classList.remove("wfr-in");
+              el.classList.add("wfr-dim");
+            } else {
+              // Belum masuk: sembunyi
+              el.classList.remove("wfr-in", "wfr-dim");
+            }
+          }
+        });
+      },
+      { threshold: 0.05 },
+    );
+    fadeItems.forEach((el) => fadeObs.observe(el));
+  }
 
   // Load data dari API
   fetchWishes(1);
