@@ -117,7 +117,7 @@ body {
    COVER PAGE
    ============================================= */
 #cover {
-  height: 100dvh;
+  height: 100svh;
   min-height: 600px;
   position: relative;
   display: flex;
@@ -298,7 +298,7 @@ body {
 #invitation {
   display: none;
   flex-direction: column;
-  min-height: 100dvh;
+  min-height: 100svh;
   position: relative;
   padding-bottom: var(--nav-h);
 }
@@ -310,17 +310,25 @@ body {
    GLOBAL BACKGROUND FIXED
    ============================================= */
 #global-bg {
+  /* Disembunyikan — background dipindah ke #invitation via CSS */
+  display: none;
+}
+/* Background utama pakai pseudo-element fixed yang ukurannya dikunci JS saat load */
+#invitation::before {
+  content: "";
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* Tinggi dikunci via --vh-fixed yang diset JS sekali saat load, tidak pernah berubah */
+  height: calc(var(--vh-fixed, 100svh));
+  background-image: url("../foto/background.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   z-index: 0;
   pointer-events: none;
-}
-#global-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
+  will-change: unset; /* pastikan tidak di-repaint tiap scroll */
 }
 
 /* =============================================
@@ -361,7 +369,7 @@ body {
 .page-opening {
   position: relative;
   width: 100%;
-  min-height: 100dvh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -472,11 +480,13 @@ body {
    ============================================= */
 .page {
   width: 100%;
-  min-height: 100dvh;
+  min-height: 100svh;
+  position: relative;
+  z-index: 1; /* harus di atas #invitation::before (z-index:0) */
 }
 
 .section-inner {
-  min-height: 100dvh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -536,7 +546,7 @@ body {
 .event-countdown {
   position: relative;
   width: 100%;
-  height: 50dvh;
+  height: 50svh;
   min-height: 300px;
   overflow: hidden;
   display: flex;
@@ -637,11 +647,11 @@ body {
 .event-detail {
   position: relative;
   width: 100%;
-  min-height: 250dvh;
+  min-height: 250svh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5dvh 1.5rem;
+  padding: 5svh 1.5rem;
   background: transparent;
 }
 /* Kapsul hitam 70% */
@@ -649,7 +659,7 @@ body {
   position: relative;
   width: 97%;
   max-width: 360px;
-  min-height: 180dvh;
+  min-height: 180svh;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 999px;
   padding: 0;
@@ -661,11 +671,11 @@ body {
   overflow: hidden;
 }
 
-/* Akad Nikah = 25% dari 200dvh kapsul = 50dvh */
+/* Akad Nikah = 25% dari 200svh kapsul = 50svh */
 .event-acara {
   width: 100%;
-  height: 70dvh;
-  min-height: 70dvh;
+  height: 70svh;
+  min-height: 70svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -842,7 +852,7 @@ body {
    ============================================= */
 .page-couple {
   position: relative;
-  height: 200dvh;
+  height: 200svh;
   overflow: hidden; /* penting: bersama sticky di dalamnya = bg fixed effect */
 }
 
@@ -869,11 +879,11 @@ body {
   line-height: 1;
 }
 
-/* Setiap "layar" – tinggi 100dvh */
+/* Setiap "layar" – tinggi 100svh */
 .couple-screen {
   position: relative;
   width: 100%;
-  height: 100dvh;
+  height: 100svh;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -958,7 +968,7 @@ body {
   overflow: hidden;
   box-shadow: 0 14px 44px rgba(0, 0, 0, 0.6);
   flex-shrink: 0;
-  height: 50dvh;
+  height: 50svh;
 }
 .couple-card img {
   width: 100%;
@@ -1229,7 +1239,7 @@ body {
 .page-opening2 {
   position: relative;
   width: 100%;
-  min-height: 100dvh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
